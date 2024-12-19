@@ -7,10 +7,10 @@ powershell.exe -c "winrm set winrm/config/winrs '@{MaxMemoryPerShellMB=\`"800\`"
 powershell.exe -c "winrm set winrm/config/service '@{AllowUnencrypted=\`"true\`"}'"
 powershell.exe -c "winrm set winrm/config/service/auth '@{Basic=\`"true\`"}'"
 powershell.exe -c "winrm set winrm/config/client/auth '@{Basic=\`"true\`"}'"
-powershell.exe -c "winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port=\`"5985\`"}'"
+powershell.exe -c "winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port=\`"5986\`"}'"
 powershell.exe -c "winrm set winrm/config/client '@{TrustedHosts=\`"*\`"}'"
 netsh advfirewall firewall set rule group="Windows Remote Administration" new enable=yes
 netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=yes action=allow remoteip=any
 reg add HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce /v StartWinRM /t REG_SZ /f /d "cmd.exe /c 'sc config winrm start= auto & sc start winrm'"
 Restart-Service winrm
-netsh advfirewall firewall add rule name="Port 5985" dir=in action=allow protocol=TCP localport=5985 
+netsh advfirewall firewall add rule name="Port 5986" dir=in action=allow protocol=TCP localport=5986 
